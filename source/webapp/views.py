@@ -33,27 +33,34 @@ class AddPhoto(LoginRequiredMixin, CreateView):
         return reverse('webapp:photo_detail', kwargs={'pk': self.object.pk})
 
 
-class EditPhoto(PermissionRequiredMixin, UpdateView):
+class EditPhoto(UserPassesTestMixin, UpdateView):
     model = Photo
     template_name = 'edit.html'
     context_object_name = 'photo'
     fields = ['photo', 'note', 'like']
-    permission_required = 'webapp.change_photo'
 
-    # def test_func(self, **kwargs):
-    #     if self.request.user.pk == self.model.author:
-    #         print(self.model)
-    #         return True
-    #     else:
-    #         return False
+
+    def test_func(self, **kwargs):
+        photo = Photo.objects.get(pk=self.kwargs.get('pk'))
+        if self.request.user == photo.author or self.request.user.has_change_permission('webapp.change_photo'):
+            return True
+        else:
+            return False
 
     def get_success_url(self):
         return reverse('webapp:photo_detail', kwargs={'pk': self.object.pk})
 
 
-class DeletePhoto(PermissionRequiredMixin, DeleteView):
+class DeletePhoto(UserPassesTestMixin, DeleteView):
     model = Photo
     context_object_name = 'photo'
     template_name = 'delete.html'
     success_url = reverse_lazy('webapp:index')
     permission_required = 'webapp.delete_photo'
+
+    def test_func(self, **kwargs):
+        photo = Photo.objects.get(pk=self.kwargs.get('pk'))
+        if self.request.user == photo.author or self.request.user.has_perm('webapp.change_photo'):
+            return True
+        else:
+            return False

@@ -75,4 +75,3 @@ function deleteComment(id) {
 }
 
 formComment();
-deleteComment();

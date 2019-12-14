@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block menu %}
-    {% if perms.webapp.change_photo  %}
+    {% if perms.webapp.change_photo or request.user == photo.author %}
         <li><a href="{% url 'webapp:edit_photo' photo.pk %}">Edit Photo</a></li>
     {% endif %}
-    {% if perms.webapp.delete_photo %}
+    {% if perms.webapp.delete_photo or request.user == photo.author %}
         <li><a href="{% url 'webapp:delete_photo' photo.pk %}">Delete Photo</a></li>
     {% endif %}
 {% endblock %}
@@ -38,13 +38,16 @@
         {% endfor %}
     </div>
     <hr>
-    <h3>You can add comment below</h3>
-    <form action="#" method="POST" id="add_comment">
-    {% csrf_token %}
-        <div>
-            <input type="hidden" id="photo_id" value="{{ photo.pk }}" style="width: 100%;">
-            <input type="text" id="comment" style="width: 100%;">
-        </div>
-            <button type="submit" class="btn btn-primary mt-3">Add</button>
-    </form>
+    {{ request.user.is_authentificated }}
+    {% if request.user.is_authentificated %}
+        <h3>You can add comment below</h3>
+        <form action="#" method="POST" id="add_comment">
+        {% csrf_token %}
+            <div>
+                <input type="hidden" id="photo_id" value="{{ photo.pk }}" style="width: 100%;">
+                <input type="text" id="comment" style="width: 100%;">
+            </div>
+                <button type="submit" class="btn btn-primary mt-3">Add</button>
+        </form>
+    {% endif %}
 {% endblock %}
