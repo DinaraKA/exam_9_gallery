@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Add Photo{% endblock %}
+{% block content %}
+    <h2>Add Photo</h2>
+    <form method="POST" action='{% url 'webapp:add_photo' %}' enctype="multipart/form-data">
+        {% include 'partial/form.html' with button_text='Add' %}
+    </form>
+{% endblock %}
