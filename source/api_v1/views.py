@@ -11,6 +11,10 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+    def filter_queryset(self, queryset):
+        queryset = super(CommentViewSet, self).filter_queryset(queryset)
+        return queryset.order_by('-comment_created_at')
+
 
 class LikeViewSet(ModelViewSet):
     queryset = Like.objects.all()
