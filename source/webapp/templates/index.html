@@ -8,8 +8,10 @@
           <div class="card">
               <a href="{% url 'webapp:photo_detail' photo.pk %}"><img src="{{ photo.photo.url }}" class="card-img-top" alt="photo"></a>
             <div class="card-body">
-              <p class="card-note">{{ photo.note }}</p>
-{#              <p class="card-like">{{ photo.like }}</p>#}
+                <p class="card-note">{{ photo.note }}</p>
+                <p class="card-note">Created by: {{ photo.author }}</p>
+                <p class="card-note">Created at: {{ photo.created_at }}</p>
+                <p class="card-like">Likes: {{ photo.like }}</p>
             </div>
           </div>
         {% endfor %}

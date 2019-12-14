@@ -7,6 +7,7 @@ class IndexView(ListView):
     template_name = 'index.html'
     model = Photo
     context_object_name = 'photos'
+    ordering = ['-created_at']
 
     def session(self, request):
         print(request.session.items())
