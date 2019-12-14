@@ -19,4 +19,15 @@
         </div>
       </div>
     </div>
+    <div class="comment-list">
+        {% for comment in photo.photo_comment.all %}
+            <hr>
+            <div class="comment">
+                <p><b>{{ forloop.counter }}. {{ comment.text }}</b></p>
+                <p>Created by - {{ comment.comment_author }},  date: {{ comment.comment_created_at|date:'d.m.Y H:i:s'}}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
 {% endblock %}
