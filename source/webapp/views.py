@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from webapp.models import Photo
 
@@ -28,4 +28,14 @@ class AddPhoto(CreateView):
     def get_success_url(self):
         return reverse('webapp:photo_detail', kwargs={'pk': self.object.pk})
 
+
+class EditPhoto(UpdateView):
+    model = Photo
+    template_name = 'edit.html'
+    context_object_name = 'photo'
+    fields = ['photo', 'note', 'like', 'author']
+
+
+    def get_success_url(self):
+        return reverse('webapp:photo_detail', kwargs={'pk': self.object.pk})
 
