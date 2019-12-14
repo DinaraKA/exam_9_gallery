@@ -1,12 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
+from api_v1.serializer import CommentSerializer, LikeSerializer
+from webapp.models import Comment, Like
 
 
-class LogoutView(APIView):
-    permission_classes = []
+class CommentViewSet(ModelViewSet):
+    # permission_classes = IsAuthenticated
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
-    def post(self, request, *args, **kwargs):
-        user = self.request.user
-        if user.is_authenticated:
-            user.auth_token.delete()
-        return Response({'status': 'ok'})
+
+class LikeViewSet(ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer

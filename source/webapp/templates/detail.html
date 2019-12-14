@@ -29,6 +29,9 @@
             <div class="comment">
                 <p><b>{{ forloop.counter }}. {{ comment.text }}</b></p>
                 <p>Created by - {{ comment.comment_author }},  date: {{ comment.comment_created_at|date:'d.m.Y H:i:s'}}</p>
+                {% if comment.comment_author == request.user%}
+                    <a href="#" id="delete_comment">Delete</a>
+                {% endif %}
             </div>
         {% empty %}
             <p>No comments yet.</p>
@@ -41,6 +44,8 @@
         <div>
             <input type="text" id="comment" style="width: 70%;">
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <div>
+           <button type="submit" class="btn btn-primary">Add</button>
+        </div>
     </form>
 {% endblock %}

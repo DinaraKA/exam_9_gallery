@@ -1,10 +1,17 @@
-from django.urls import path
-from rest_framework.authtoken.views import obtain_auth_token
-from .views import LogoutView
+from django.urls import include, path
+from rest_framework import routers
+from api_v1.views import CommentViewSet, LikeViewSet
 
-app_name = 'api_v1'
+router = routers.DefaultRouter()
+router.register(r'comments', CommentViewSet)
+router.register(r'likes', LikeViewSet)
+
+
+app_name = 'api'
 
 urlpatterns = [
-    path('login/', obtain_auth_token, name='login'),
-    path('logout/', LogoutView.as_view(), name='logout')
+    path('', include(router.urls)),
+    # path('login/', name='api_token_auth'),
+    # path('logout/',  name='api_token_delete')
+
 ]
