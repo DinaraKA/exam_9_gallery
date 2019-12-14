@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from webapp.models import Photo
 
@@ -10,4 +10,9 @@ class IndexView(ListView):
 
     def session(self, request):
         print(request.session.items())
+
+class PhotoView(DetailView):
+    model = Photo
+    template_name = 'detail.html'
+    context_object_name = 'photo'
 

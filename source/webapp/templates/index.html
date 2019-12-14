@@ -6,7 +6,7 @@
     <div class="card-deck">
         {% for photo in photos %}
           <div class="card">
-            <img src="{{ photo.photo.url }}" class="card-img-top" alt="photo">
+              <a href="{% url 'webapp:photo_detail' photo.pk %}"><img src="{{ photo.photo.url }}" class="card-img-top" alt="photo"></a>
             <div class="card-body">
               <p class="card-note">{{ photo.note }}</p>
 {#              <p class="card-like">{{ photo.like }}</p>#}
