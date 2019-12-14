@@ -20,6 +20,16 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             {% block menu %}{% endblock %}
+            <li class="menu-right">
+                <ul>
+                    {% if request.user.is_authenticated %}
+                        <li style="color: darkblue;">Hello, {{request.user}}!</li>
+                        <li><a href="{% url 'webapp:logout' %}">Log out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'webapp:login' %}">Log in</a></li>
+                    {% endif %}
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>
