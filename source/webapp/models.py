@@ -28,3 +28,16 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, related_name='like_author', on_delete=models.CASCADE, verbose_name='User')
+    photo = models.ForeignKey('Photo', related_name='like_photo', on_delete=models.CASCADE, verbose_name='Photo')
+
+
+    def __str__(self):
+        return '{}, {}'.format(self.user, self.photo)
+
+    class Meta:
+        verbose_name = 'Like'
+        verbose_name_plural = 'Likes'

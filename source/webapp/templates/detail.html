@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block menu %}
-    <li><a href="{% url 'webapp:edit_photo' photo.pk %}">Edit Photo</a></li>
-    <li><a href="{% url 'webapp:delete_photo' photo.pk %}">Delete Photo</a></li>
+    {% if perms.webapp.change_photo  %}
+        <li><a href="{% url 'webapp:edit_photo' photo.pk %}">Edit Photo</a></li>
+    {% endif %}
+    {% if perms.webapp.delete_photo %}
+        <li><a href="{% url 'webapp:delete_photo' photo.pk %}">Delete Photo</a></li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <div class="card  mb-3" style="max-width: 540px;">
@@ -30,4 +34,13 @@
             <p>No comments yet.</p>
         {% endfor %}
     </div>
+    <hr>
+    <h3>You can add comment below</h3>
+    <form action="#" method="POST" id="add_comment">
+    {% csrf_token %}
+        <div>
+            <input type="text" id="comment" style="width: 70%;">
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
 {% endblock %}
