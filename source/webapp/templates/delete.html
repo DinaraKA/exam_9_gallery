@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Delete Photo{% endblock %}
+{% block menu %}
+    <li><a href="{% url 'webapp:photo_detail' photo.pk %}">Details</a></li>
+{% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h3>Are you sure want to delete photo?</h3>
+            <form method="POST" action="{% url "webapp:delete_photo" photo.pk %}" class="text-center">
+                {% csrf_token %}
+                <div class="card mb-3" style="max-width: 540px; justify-items: center">
+                  <div class="row no-gutters" style="align-items: center">
+                    <div class="col-md-4">
+                      <img src="{{ photo.photo.url }}" class="card-img" alt="photo">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                          <p class="card-note">{{ photo.note }}</p>
+                          <p class="card-note">Created by: {{ photo.author }}</p>
+                          <p class="card-note">Created at: {{ photo.created_at }}</p>
+                          <p class="card-like">Likes: {{ photo.like }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <button type="submit" class="btn btn-dark" value="Подтвердить">Yes</button>
+                <button type="submit" class="btn btn-dark" value="Submit"><a href="{% url 'webapp:photo_detail' photo.pk %}">No</a></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

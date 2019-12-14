@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block menu %}
     <li><a href="{% url 'webapp:edit_photo' photo.pk %}">Edit Photo</a></li>
+    <li><a href="{% url 'webapp:delete_photo' photo.pk %}">Delete Photo</a></li>
 {% endblock %}
 {% block content %}
     <div class="card  mb-3" style="max-width: 540px;">
